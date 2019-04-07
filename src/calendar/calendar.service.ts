@@ -7,6 +7,7 @@ import {
   EventsOnDate,
   EventDetailed,
 } from './models/models';
+
 import * as eachDay from 'date-fns/each_day';
 import * as format from 'date-fns/format';
 
@@ -17,12 +18,17 @@ export class CalendarService {
     private readonly eventRepository: Repository<EventEntity>,
   ) {}
 
-  async createEvent(event: CreateEventParams): Promise<EventEntity> {
-    return await this.eventRepository.save(event);
+  async createEvent(event: CreateEventParams): Promise<EventDetailed> {
+    const result = await this.eventRepository.save(event);
+    return this.serializeEvent(result);
   }
 
   async updateEvent(event: EventDetailed): Promise<void> {
     await this.eventRepository.update(event.id, event);
+  }
+
+  async deleteEvent(id: string): Promise<void> {
+    await this.eventRepository.delete(id);
   }
 
   async getEventsInMonth(month: string): Promise<EventsOnDate[]> {
@@ -30,7 +36,7 @@ export class CalendarService {
       ({ time }) => time.includes(month),
     );
 
-    return eachDay(`${month}-01`, `${month}-31`).map(date => {
+    return eachDay(`${month}-01`, `${month}-42`).map(date => {
       const dateFormatted = format(date, 'YYYY-MM-DD');
 
       return {

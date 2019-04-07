@@ -1,4 +1,13 @@
-import { Controller, Get, Query, Post, Body, Put, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import {
   EventsOnDate,
   EventDetailed,
@@ -40,6 +49,12 @@ export class CalendarController {
     @Body() event: CreateEventParams,
   ): Promise<{ id: string }> {
     await this.calendarService.updateEvent({ id, ...event });
+    return { id };
+  }
+
+  @Delete('/event/:id')
+  async deleteEvent(@Param('id') id: string): Promise<{ id: string }> {
+    await this.calendarService.deleteEvent(id);
     return { id };
   }
 }
