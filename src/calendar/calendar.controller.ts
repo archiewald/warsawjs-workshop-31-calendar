@@ -1,5 +1,5 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { EventsOnDate, EventDetailed } from './models';
+import { EventsOnDate, EventDetailed } from './models/models';
 import { CALENDAR, DAY } from './stub';
 
 @Controller('')

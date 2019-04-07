@@ -1,4 +1,4 @@
-import { EventsOnDate } from './models';
+import { EventsOnDate } from './models/models';
 
 export const DAY = {
   data: [
