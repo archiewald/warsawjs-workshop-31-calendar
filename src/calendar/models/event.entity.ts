@@ -1,5 +1,4 @@
 import { Entity, Column, ObjectIdColumn, ObjectID } from 'typeorm';
-import { EventDetailed } from './models';
 
 @Entity()
 export class EventEntity {
