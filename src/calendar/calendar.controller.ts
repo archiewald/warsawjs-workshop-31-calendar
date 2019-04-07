@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Post, Body } from '@nestjs/common';
+import { Controller, Get, Query, Post, Body, Put, Param } from '@nestjs/common';
 import {
   EventsOnDate,
   EventDetailed,
@@ -32,5 +32,14 @@ export class CalendarController {
     return {
       id: (await this.calendarService.createEvent(event)).id.toString(),
     };
+  }
+
+  @Put('/event/:id')
+  async updateEvent(
+    @Param('id') id: string,
+    @Body() event: CreateEventParams,
+  ): Promise<{ id: string }> {
+    await this.calendarService.updateEvent({ id, ...event });
+    return { id };
   }
 }

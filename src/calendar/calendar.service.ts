@@ -8,7 +8,7 @@ import {
   EventDetailed,
 } from './models/models';
 import * as eachDay from 'date-fns/each_day';
-import format = require('date-fns/format');
+import * as format from 'date-fns/format';
 
 @Injectable()
 export class CalendarService {
@@ -19,6 +19,10 @@ export class CalendarService {
 
   async createEvent(event: CreateEventParams): Promise<EventEntity> {
     return await this.eventRepository.save(event);
+  }
+
+  async updateEvent(event: EventDetailed): Promise<void> {
+    await this.eventRepository.update(event.id, event);
   }
 
   async getEventsInMonth(month: string): Promise<EventsOnDate[]> {
