@@ -8,7 +8,7 @@ export class EventEntity {
   @Column()
   title: string;
 
-  @Column('text')
+  @Column()
   description: string;
 
   @Column()

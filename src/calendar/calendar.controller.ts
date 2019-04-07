@@ -3,9 +3,8 @@ import {
   EventsOnDate,
   EventDetailed,
   Event,
-  EventDetailedSerialized,
+  CreateEventParams,
 } from './models/models';
-import { CALENDAR, DAY } from './stub';
 import { CalendarService } from './calendar.service';
 
 @Controller('')
@@ -13,23 +12,23 @@ export class CalendarController {
   constructor(private readonly calendarService: CalendarService) {}
 
   @Get('/calendar')
-  getMonth(@Query('month') month: string): { data: EventsOnDate[] } {
+  async getMonth(
+    @Query('month') month: string,
+  ): Promise<{ data: EventsOnDate[] }> {
     return {
-      data: CALENDAR.data.filter(({ date }) => date.includes(month)),
+      data: await this.calendarService.getEventsInMonth(month),
     };
   }
 
   @Get('/day')
-  getDay(@Query('date') day: string): { data: EventDetailed[] } {
+  async getDay(@Query('date') day: string): Promise<{ data: EventDetailed[] }> {
     return {
-      data: DAY.data,
+      data: await this.calendarService.getEventsInDay(day),
     };
   }
 
   @Post('/event')
-  async createEvent(
-    @Body() event: EventDetailedSerialized,
-  ): Promise<{ id: string }> {
+  async createEvent(@Body() event: CreateEventParams): Promise<{ id: string }> {
     return {
       id: (await this.calendarService.createEvent(event)).id.toString(),
     };

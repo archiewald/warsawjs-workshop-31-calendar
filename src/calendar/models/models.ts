@@ -9,7 +9,7 @@ export interface EventDetailed extends Event {
   notification: boolean;
 }
 
-export interface EventDetailedSerialized {
+export interface CreateEventParams {
   title: string;
   description: string;
   time: string;
