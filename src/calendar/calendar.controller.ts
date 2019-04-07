@@ -8,13 +8,9 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import {
-  EventsOnDate,
-  EventDetailed,
-  Event,
-  CreateEventParams,
-} from './models/models';
+import { EventsOnDate, EventDetailed } from './models/models';
 import { CalendarService } from './calendar.service';
+import { CreateEventParams, GetMonthParams } from './models/params';
 
 @Controller('')
 export class CalendarController {
@@ -22,10 +18,10 @@ export class CalendarController {
 
   @Get('/calendar')
   async getMonth(
-    @Query('month') month: string,
+    @Query() params: GetMonthParams,
   ): Promise<{ data: EventsOnDate[] }> {
     return {
-      data: await this.calendarService.getEventsInMonth(month),
+      data: await this.calendarService.getEventsInMonth(params.month),
     };
   }
 

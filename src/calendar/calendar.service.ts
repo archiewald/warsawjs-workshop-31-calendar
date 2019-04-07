@@ -2,14 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EventEntity } from './models/event.entity';
 import { Repository } from 'typeorm';
-import {
-  CreateEventParams,
-  EventsOnDate,
-  EventDetailed,
-} from './models/models';
+import { EventsOnDate, EventDetailed } from './models/models';
 
 import * as eachDay from 'date-fns/each_day';
 import * as format from 'date-fns/format';
+import { CreateEventParams } from './models/params';
 
 @Injectable()
 export class CalendarService {
@@ -32,6 +29,10 @@ export class CalendarService {
   }
 
   async getEventsInMonth(month: string): Promise<EventsOnDate[]> {
+    if (!month) {
+      throw Error();
+    }
+
     const eventsInMonth = (await this.eventRepository.find()).filter(
       ({ time }) => time.includes(month),
     );
