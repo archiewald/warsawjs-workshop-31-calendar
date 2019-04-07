@@ -1,11 +1,11 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { DateEvents, EventDetailed } from './models';
+import { EventsOnDate, EventDetailed } from './models';
 import { CALENDAR, DAY } from './stub';
 
 @Controller('')
 export class CalendarController {
   @Get('/calendar')
-  getMonth(@Query('month') month: string): { data: DateEvents[] } {
+  getMonth(@Query('month') month: string): { data: EventsOnDate[] } {
     return {
       data: CALENDAR.data.filter(({ date }) => date.includes(month)),
     };

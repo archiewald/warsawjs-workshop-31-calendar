@@ -9,7 +9,7 @@ export interface EventDetailed extends Event {
   notification: boolean;
 }
 
-export interface DateEvents {
+export interface EventsOnDate {
   date: string;
   events: Event[];
 }

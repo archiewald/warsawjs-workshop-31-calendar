@@ -1,4 +1,4 @@
-import { DateEvents } from './models';
+import { EventsOnDate } from './models';
 
 export const DAY = {
   data: [
@@ -19,7 +19,7 @@ export const DAY = {
   ],
 };
 
-export const CALENDAR: { data: DateEvents[] } = {
+export const CALENDAR: { data: EventsOnDate[] } = {
   data: [
     { date: '2019-04-01', events: [] },
     { date: '2019-04-02', events: [] },
