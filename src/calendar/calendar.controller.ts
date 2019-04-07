@@ -7,7 +7,7 @@ export class CalendarController {
   @Get('/calendar')
   getMonth(@Query('month') month: string): { data: DateEvents[] } {
     return {
-      data: CALENDAR.data,
+      data: CALENDAR.data.filter(({ date }) => date.includes(month)),
     };
   }
 
